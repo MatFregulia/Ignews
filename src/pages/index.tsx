@@ -10,14 +10,14 @@ import styles from './home.module.scss'
 // Server-side Rendering
 // Static Site Generation
 
-interface HomePropos {
+interface HomeProps {
   product: {
-    priceId: string,
-    amount: number,
+    priceId: string;
+    amount: number;
   }
 }
 
-export default function Home({ product }: HomePropos) {
+export default function Home({ product }: HomeProps) {
   return (
     <>
       <Head>
@@ -41,7 +41,7 @@ export default function Home({ product }: HomePropos) {
   )
 }
 
-export const getServerSideProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1KEYKJJVfOoKRz52gtgjFxhZ')
 
   const product = {
@@ -56,6 +56,6 @@ export const getServerSideProps: GetStaticProps = async () => {
     props: {
       product,
     },
-    revalidate: 60 * 60 * 24, // 24 hours
+    revalidate: 60 * 60 * 24
   }
 }
